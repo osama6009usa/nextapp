@@ -75,8 +75,8 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 ## [STATUS â€” ÙŠÙØ­Ø¯ÙŽÙ‘Ø« Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©]
 ```
 Ø¢Ø®Ø± ØªØ­Ø¯ÙŠØ« : 2026-04-04
-Ø¢Ø®Ø± Ø¥Ù†Ø¬Ø§Ø²  : S-04 â€” Dashboard ÙˆØ¸ÙŠÙÙŠ (Recovery + HRV + Fasting Timer + Protein + Water + Daily/BioSov Score + Skeleton Loading + Supabase real data)
-Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©: S-06 â€” Ø´Ø§Ø´Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„ÙˆØ¬Ø¨Ø§Øª (Meal Logger Ù…Ø¹ Ø­Ø³Ø§Ø¨ Ø§Ù„Ø³Ø¹Ø±Ø§Øª ÙˆØ§Ù„Ø¨Ø±ÙˆØªÙŠÙ† ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹)
+Ø¢Ø®Ø± Ø¥Ù†Ø¬Ø§Ø²  : S-06 — تسجيل الماء كامل (useWaterToday + water/page.tsx + WaterWidget + Realtime + DB fix + Dashboard ربط)
+Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©: S-05 ربط — ربط كود WHOOP الموجود بـ daily_logs + تحديث Dashboard فورياً
 
 ```
 
