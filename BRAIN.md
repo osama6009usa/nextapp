@@ -74,9 +74,9 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 
 ## [STATUS â€” ÙŠÙØ­Ø¯ÙŽÙ‘Ø« Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©]
 ```
-Ø¢Ø®Ø± ØªØ­Ø¯ÙŠØ« : 2026-04-04
-Ø¢Ø®Ø± Ø¥Ù†Ø¬Ø§Ø²  : S-06 — تسجيل الماء كامل (useWaterToday + water/page.tsx + WaterWidget + Realtime + DB fix + Dashboard ربط)
-Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©: S-05 ربط — ربط كود WHOOP الموجود بـ daily_logs + تحديث Dashboard فورياً
+Ø¢Ø®Ø± ØªØ­Ø¯ÙŠØ« : 2026-04-05
+Ø¢Ø®Ø± Ø¥Ù†Ø¬Ø§Ø²  : S-05 ربط — saveLog mapping صح + Realtime Dashboard + Claude Vision يعمل + test user
+Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„Ù‚Ø§Ø¯Ù…Ø©: S-05 إكمال — Auth login + اختبار حفظ daily_logs + التحقق من Realtime
 
 ```
 
@@ -127,5 +127,5 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 - Supabase Dashboard: http://178.104.115.233:8000
 - SSH: root@178.104.115.233
 - n8n: [Ø£Ø¶Ù Ø§Ù„Ø¨ÙˆØ±Øª]
-- Roadmap: /docs/BioSovereignty_Final_v3.md (Ù…Ø¹ØªÙ…Ø¯: 2026-04-04)
+- Roadmap: /docs/BioSovereignty_Final_v3.md (Ù…Ø¹ØªÙ…Ø¯: 2026-04-05)
 
