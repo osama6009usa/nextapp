@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createBrowserClient } from "@supabase/ssr";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 interface WhoopData {
@@ -56,7 +56,7 @@ export default function WhoopLogPage() {
   const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const supabase = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
 
   const t = (ar: string, en: string) => lang === "ar" ? ar : en;
   const isRTL = lang === "ar";
@@ -113,11 +113,20 @@ export default function WhoopLogPage() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("daily_logs").insert({
-        user_id: user.id,
-        date,
-        ...data,
-      });
+      const payload = {
+        user_id:        user.id,
+        log_date:       date,
+        recovery_score: data.recovery_percent,
+        hrv:            data.hrv_ms,
+        rhr:            data.resting_hr,
+        sleep_score:    data.sleep_performance,
+        sleep_hours:    data.sleep_hours,
+        strain:         data.strain,
+      };
+
+      const { error } = await supabase
+        .from("daily_logs")
+        .upsert(payload, { onConflict: "user_id,log_date" });
 
       if (error) throw error;
       setStage("done");

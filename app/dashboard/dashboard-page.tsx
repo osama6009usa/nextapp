@@ -236,6 +236,18 @@ export default function DashboardPage() {
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
+  // Realtime: refresh when daily_logs changes
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) return;
+      const channel = supabase
+        .channel("dashboard-daily-logs")
+        .on("postgres_changes", { event: "*", schema: "public", table: "daily_logs", filter: `user_id=eq.${user.id}` }, () => fetchData())
+        .subscribe();
+      return () => { supabase.removeChannel(channel); };
+    });
+  }, [supabase, fetchData]);
+
   const { log, lastMealAt } = data;
   const recovery = log?.recovery_score ?? 0;
   const hrv      = log?.hrv            ?? 0;
@@ -317,8 +329,8 @@ export default function DashboardPage() {
                       <span style={{ fontSize: "11px", color: "var(--color-text-secondary)" }}>لم يُسجَّل بعد</span>
                     </div>
                   )}
-                  {log?.sleep_performance != null && (
-                    <span style={{ fontSize: "11px", color: "var(--color-text-secondary)", padding: "3px 8px", background: "var(--bg-elevated)", borderRadius: 9999 }}>نوم {log.sleep_performance}%</span>
+                  {log?.sleep_score != null && (
+                    <span style={{ fontSize: "11px", color: "var(--color-text-secondary)", padding: "3px 8px", background: "var(--bg-elevated)", borderRadius: 9999 }}>نوم {log.sleep_score}%</span>
                   )}
                 </Card>
 
