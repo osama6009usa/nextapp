@@ -75,8 +75,8 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 ## [STATUS â€” ÙŠÙØ­Ø¯ÙŽÙ‘Ø« Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©]
 ```
 آخر تحديث : 2026-04-06
-آخر إنجاز  : إصلاح step4/page.tsx — حذف sleepTag + سطر sleepHrs المكرر + span مكسور في line 480 — الصفحة تفتح بدون أخطاء مع عداد نوم نظيف بدون badge
-الخطوة القادمة: S-01 Auth وظيفي — ربط واجهة تسجيل الدخول بـ Supabase Auth
+آخر إنجاز  : S-01 Auth وظيفي — login + middleware + redirect يعمل كاملاً
+الخطوة القادمة: S-02 إعداد الملف الشخصي — ربط الواجهة بجدول profiles
 
 ```
 

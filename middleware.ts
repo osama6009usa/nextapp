@@ -1,64 +1,44 @@
 ﻿import { createServerClient } from '@supabase/ssr'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  console.log('MIDDLEWARE HIT:', pathname)
+
+  let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name) { return req.cookies.get(name)?.value },
-        set(name, value, options) {
-          req.cookies.set({ name, value, ...options })
-          res.cookies.set({ name, value, ...options })
-        },
-        remove(name, options) {
-          req.cookies.set({ name, value: '', ...options })
-          res.cookies.set({ name, value: '', ...options })
+        getAll() { return request.cookies.getAll() },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
         },
       },
     }
   )
 
   const { data: { session } } = await supabase.auth.getSession()
-  const path = req.nextUrl.pathname
+  console.log('SESSION:', session ? 'EXISTS' : 'NULL')
 
-  // ── المسارات العامة ──
-  const publicPaths = ['/login', '/register', '/forgot-password']
-  if (publicPaths.includes(path)) {
-    if (session) return NextResponse.redirect(new URL('/dashboard', req.url))
-    return res
+  if (!session && pathname !== '/login') {
+    console.log('REDIRECTING TO LOGIN')
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // ── غير مسجّل → login ──
-  if (!session) {
-    return NextResponse.redirect(new URL('/login', req.url))
+  if (session && pathname === '/login') {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // ── مسارات الإعداد — لا تحتاج profile مكتمل ──
-  if (path.startsWith('/profile/setup')) {
-    return res
-  }
-
-  // ── تحقق من اكتمال الـ profile ──
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('setup_completed')
-    .eq('id', session.user.id)
-    .single()
-
-  if (!profile?.setup_completed) {
-    return NextResponse.redirect(new URL('/profile/setup/step1', req.url))
-  }
-
-  return res
+  return supabaseResponse
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|api/).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }
