@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { updateStep, loadSetupData, clearSetupData } from '@/lib/profile-store'
 import { defaultStep6, type Step6Data } from '@/lib/profile-types'
-import { supabase } from '@/lib/supabase'
+import { saveProfile } from '@/app/actions/profile'
 
 const GOALS = [
   { k:'fat_loss',     icon:'🔥', t:'خسارة الدهون',      s:'تقليل نسبة الدهون مع الحفاظ على العضلات' },
@@ -48,20 +48,15 @@ export default function Step6Page() {
     if (!aiText.trim()) return
     setAiLoading(true)
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `أنت مساعد صحي في منصة BioSovereignty. المستخدم كتب:\n"${aiText}"\nاستخرج 3-4 أهداف صحية. أجب بـ JSON فقط:\n{"goals":[{"title":"اسم قصير","why":"سبب مناسب","confidence":"عالي أو متوسط"}],"summary":"جملة تلخيصية"}`
-          }]
+          message: `أنت مساعد صحي في منصة BioSovereignty. المستخدم كتب:\n"${aiText}"\nاستخرج 3-4 أهداف صحية. أجب بـ JSON فقط بدون أي نص إضافي:\n{"goals":[{"title":"اسم قصير","why":"سبب مناسب","confidence":"عالي أو متوسط"}],"summary":"جملة تلخيصية"}`
         })
       })
       const data = await res.json()
-      const txt = data.content[0].text.replace(/```json|```/g,'').trim()
+      const txt = (data.reply || data.content || '').replace(/```json|```/g,'').trim()
       const parsed = JSON.parse(txt)
       setAiGoals(parsed.goals.map((g:any) => ({ ...g, on: true })))
       setForm(p => ({ ...p, goals: parsed.goals.map((g:any) => g.title), goals_mode:'ai' }))
@@ -82,84 +77,16 @@ export default function Step6Page() {
     setSaving(true)
     setError('')
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('غير مسجّل')
-
-      const all = loadSetupData()
-      const s1 = all.step1
-      const s2 = all.step2
-      const s3 = all.step3
-      const s4 = all.step4
-      const s5 = all.step5
-
-      const payload = {
-        id:               user.id,
-        // الخطوة 1
-        first_name:       s1.first_name,
-        last_name:        s1.last_name,
-        full_name:        `${s1.first_name} ${s1.last_name}`.trim(),
-        dob:              s1.dob || null,
-        gender:           s1.gender || null,
-        weight_kg:        s1.weight_kg,
-        height_cm:        s1.height_cm,
-        blood_type:       s1.blood_type || null,
-        timezone:         s1.timezone,
-        // الخطوة 2
-        inbody_weight:    s2.inbody_data?.weight ?? null,
-        inbody_fat:       s2.inbody_data?.fat ?? null,
-        inbody_muscle:    s2.inbody_data?.muscle ?? null,
-        inbody_visceral:  s2.inbody_data?.visceral ?? null,
-        inbody_bmr:       s2.inbody_data?.bmr ?? null,
-        inbody_water:     s2.inbody_data?.water ?? null,
-        inbody_date:      s2.inbody_date || null,
-        wearable_device:  s2.wearable_device,
-        // الخطوة 3
-        bio_constitution:     s3.bio_constitution || null,
-        constitution_scores:  s3.constitution_scores,
-        // الخطوة 4
-        activity_level:      s4.activity_level,
-        diet_type:           s4.diet_type,
-        meals_per_day:       s4.meals_per_day,
-        last_meal_time:      s4.last_meal_time,
-        has_snack:           s4.has_snack,
-        snack_type:          s4.snack_type || null,
-        has_caffeine:        s4.has_caffeine,
-        caffeine_type:       s4.caffeine_type || null,
-        last_caffeine_time:  s4.last_caffeine_time || null,
-        daily_water:         s4.daily_water,
-        fasting_level:       s4.fasting_level,
-        sleep_time:          s4.sleep_time,
-        wake_time:           s4.wake_time,
-        sleep_hours:         s4.sleep_hours,
-        // الخطوة 5
-        chronic_conditions:  s5.chronic_conditions,
-        injuries:            s5.injuries,
-        surgeries:           s5.surgeries,
-        medications:         s5.medications,
-        no_medications:      s5.no_medications,
-        smoking_status:      s5.smoking_status || null,
-        smoking_packs:       s5.smoking_packs,
-        smoking_years:       s5.smoking_years,
-        allergies:           s5.allergies,
-        health_notes:        s5.health_notes || null,
-        // الخطوة 6
-        goals:               form.goals,
-        goals_mode:          mode,
-        // الحالة
-        setup_step:          6,
-        setup_completed:     true,
-        updated_at:          new Date().toISOString(),
-      }
-
-      const { error: dbErr } = await supabase.from('profiles').upsert(payload)
-      if (dbErr) throw new Error(dbErr.message)
-
+      updateStep('step6', { ...form, goals_mode: mode })
+      const allData = loadSetupData()
+      const result = await saveProfile(allData)
+      if (!result.success) throw new Error(result.error || 'خطأ في الحفظ')
       clearSetupData()
       router.push('/dashboard')
     } catch (e: any) {
       setError(e.message || 'حدث خطأ — حاول مرة أخرى')
+      setSaving(false)
     }
-    setSaving(false)
   }
 
   const selectedCount = form.goals.length
@@ -233,7 +160,7 @@ export default function Step6Page() {
             {selectedCount >= 2 && (
               <div style={{ marginBottom:'14px' }}>
                 <div style={{ fontSize:'11px', color:'#64748B', marginBottom:'6px', textAlign:'center' }}>
-                  اسحب لترتيب أهدافك حسب الأولوية
+                  أهدافك المختارة حسب الأولوية
                 </div>
                 <div style={{ display:'flex', flexWrap:'wrap', gap:'6px', justifyContent:'center' }}>
                   {form.goals.map((k,i)=>(
@@ -313,7 +240,6 @@ export default function Step6Page() {
           </div>
         )}
 
-        {/* ملخص */}
         {form.goals.length > 0 && (
           <div style={{ background:'rgba(79,70,229,0.04)', border:'0.5px solid rgba(79,70,229,0.15)',
             borderRadius:'8px', padding:'10px 14px', fontSize:'12px', color:'#64748B',
@@ -349,4 +275,3 @@ export default function Step6Page() {
     </div>
   )
 }
-

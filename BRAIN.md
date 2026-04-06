@@ -75,8 +75,8 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 ## [STATUS â€” ÙŠÙØ­Ø¯ÙŽÙ‘Ø« Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©]
 ```
 آخر تحديث : 2026-04-06
-آخر إنجاز  : S-01 Auth وظيفي — login + middleware + redirect يعمل كاملاً
-الخطوة القادمة: S-02 إعداد الملف الشخصي — ربط الواجهة بجدول profiles
+آخر إنجاز  : S-02 إعداد الملف الشخصي — ربط كامل بجدول profiles + is_complete + middleware
+الخطوة القادمة: S-03 إعداد الأهداف — حفظ protein_goal + water_goal + fasting في profiles
 
 ```
 
@@ -128,6 +128,7 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 - SSH: root@178.104.115.233
 - n8n: [Ø£Ø¶Ù Ø§Ù„Ø¨ÙˆØ±Øª]
 - Roadmap: /docs/BioSovereignty_Final_v3.md (Ù…Ø¹ØªÙ…Ø¯: 2026-04-05)
+
 
 
 
