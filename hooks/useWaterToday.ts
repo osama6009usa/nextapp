@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // ============================================================
 // hooks/useWaterToday.ts
@@ -7,7 +7,7 @@
 // ============================================================
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createClient } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
 // ── Types ────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ function buildState(
 
 // ── Hook ─────────────────────────────────────────────────────
 export function useWaterToday(): UseWaterTodayReturn {
-  const supabase = createClient();
+  
   const channelRef = useRef<RealtimeChannel | null>(null);
 
   const [goalMl,      setGoalMl]      = useState<number>(DEFAULT_GOAL_ML);
@@ -193,3 +193,4 @@ export function useWaterToday(): UseWaterTodayReturn {
     insertError,
   };
 }
+

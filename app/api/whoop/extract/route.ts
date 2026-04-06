@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
       throw new Error("No text response from Claude");
     }
 
-    // Parse JSON — strip any accidental markdown fences
+    // Parse JSON â€” strip any accidental markdown fences
     let rawText = textBlock.text.trim();
     rawText = rawText.replace(/^```json?\s*/i, "").replace(/\s*```$/i, "");
 
@@ -110,8 +110,5 @@ export async function POST(req: NextRequest) {
 }
 
 // Allow large payloads for base64 images
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export const maxDuration = 30;
+
