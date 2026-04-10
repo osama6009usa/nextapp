@@ -1,4 +1,4 @@
-﻿# YourHealth Platform â€” PROJECT BRAIN v1.0
+# YourHealth Platform â€” PROJECT BRAIN v1.0
 > Ø§Ù†Ø³Ø® Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù ÙƒØ§Ù…Ù„Ø§Ù‹ ÙÙŠ Ø¨Ø¯Ø§ÙŠØ© ÙƒÙ„ Ù…Ø­Ø§Ø¯Ø«Ø© Ø¬Ø¯ÙŠØ¯Ø©
 
 ---
