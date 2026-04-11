@@ -1,23 +1,12 @@
-﻿// ═══════════════════════════════════════════════════════
-//  S-04  BioSovereignty Dashboard — المرحلة 2-A
-//  Server Component (data fetch) + Client Components
-// ═══════════════════════════════════════════════════════
-
 import { Suspense } from "react"
 import { redirect } from "next/navigation"
 import { getDashboardData } from "@/lib/dashboard-data"
-import DashboardLoading from "./loading"
-
-// ── Client sub-components ─────────────────────────────
 import { WhoopMetrics } from "@/components/dashboard/WhoopMetrics"
 import { ScoreCards } from "@/components/dashboard/ScoreCards"
-import { FastingTimer } from "@/components/dashboard/FastingTimer"
+import { FastingTimerDetailed } from "@/components/fasting/FastingTimerDetailed"
 import { ProgressBars } from "@/components/dashboard/ProgressBars"
 import { EmptyWhoop } from "@/components/dashboard/EmptyWhoop"
 
-// ─────────────────────────────────────────────────────
-//  Page — Server Component
-// ─────────────────────────────────────────────────────
 export default async function DashboardPage() {
   let data
 
@@ -31,16 +20,15 @@ export default async function DashboardPage() {
   }
 
   const {
+    userId,
     dailyLog,
     dailyScore,
     totalProteinToday,
     totalWaterToday,
-    lastMealTime,
     userGoals,
     hasWhoopData,
   } = data
 
-  // ── Greeting ──────────────────────────────────────
   const hour = new Date().getHours()
   const greeting =
     hour < 12 ? "صباح النور" : hour < 17 ? "مساء الخير" : "مساء النور"
@@ -49,7 +37,6 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-[#EEF2F8] pb-24" dir="rtl">
       <div className="max-w-2xl mx-auto px-4 pt-6 space-y-4">
 
-        {/* ── Header ───────────────────────────────── */}
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-xs text-gray-500 font-medium">
@@ -67,14 +54,12 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* ── WHOOP Section ────────────────────────── */}
         {!hasWhoopData ? (
           <EmptyWhoop />
         ) : (
           <WhoopMetrics log={dailyLog!} />
         )}
 
-        {/* ── Scores ───────────────────────────────── */}
         <Suspense fallback={<div className="h-24 bg-white/60 rounded-2xl animate-pulse" />}>
           <ScoreCards
             dailyScore={dailyScore?.daily_score ?? null}
@@ -82,13 +67,11 @@ export default async function DashboardPage() {
           />
         </Suspense>
 
-        {/* ── Fasting Timer ────────────────────────── */}
-        <FastingTimer
-          lastMealTime={lastMealTime}
-          fastingWindow={userGoals.fasting_window}
-        />
+        <div className="bg-white rounded-2xl shadow-sm p-5">
+          <h2 className="text-sm font-semibold text-gray-700 mb-4">عداد الصيام</h2>
+          <FastingTimerDetailed userId={userId} />
+        </div>
 
-        {/* ── Protein + Water Bars ─────────────────── */}
         <ProgressBars
           proteinConsumed={totalProteinToday}
           proteinGoal={userGoals.protein_goal}

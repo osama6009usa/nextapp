@@ -1,135 +1,110 @@
-# YourHealth Platform â€” PROJECT BRAIN v1.0
-> Ø§Ù†Ø³Ø® Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù ÙƒØ§Ù…Ù„Ø§Ù‹ ÙÙŠ Ø¨Ø¯Ø§ÙŠØ© ÙƒÙ„ Ù…Ø­Ø§Ø¯Ø«Ø© Ø¬Ø¯ÙŠØ¯Ø©
+# BioSovereignty Platform — PROJECT BRAIN v1.0
+> انسخ هذا الملف كاملاً في بداية كل محادثة جديدة
 
 ---
 
 ## [IDENTITY]
-- Ø§Ù„Ù…Ù†ØµØ©: Your Health (BioSovereignty) â€” ØªØ·Ø¨ÙŠÙ‚ ØµØ­ÙŠ Ø´Ø®ØµÙŠ
-- Ø§Ù„Ù…Ø§Ù„Ùƒ: Ø¯. Ø£Ø³Ø§Ù…Ø© Ø¨Ù† Ù…Ø­Ù…ÙˆØ¯ (Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø§Ù„ÙˆØ­ÙŠØ¯)
-- Ø§Ù„Ù…Ø±Ø­Ù„Ø©: ØªØµÙ…ÙŠÙ… â†’ Ø¨Ù†Ø§Ø¡ MVP
-- Ø§Ù„Ø³ÙˆÙ‚: Ø§Ù„Ø³Ø¹ÙˆØ¯ÙŠØ© Ø£ÙˆÙ„Ø§Ù‹ØŒ Ø«Ù… ØªÙˆØ³Ø¹ Ø¨Ø¹Ø¯ 3 Ø£Ø´Ù‡Ø± ØªØ¬Ø±ÙŠØ¨ÙŠØ© Ù…Ø¹ 10 Ø£Ø´Ø®Ø§Øµ
+- المنصة: Your Health (BioSovereignty) — تطبيق صحي شخصي
+- المالك: د. أسامة بن محمود (المستخدم الوحيد)
+- المرحلة: تصميم → بناء MVP
+- السوق: السعودية أولاً، ثم توسع بعد 3 أشهر تجريبية مع 10 أشخاص
 
 ---
 
 ## [STACK]
-```
 Frontend : Next.js 14 (App Router) + PWA
 Backend  : Supabase Self-Hosted (PostgreSQL + Auth + Storage + RLS)
-AI       : Claude API â€” Sonnet Ù„ÙƒÙ„ Ø´ÙŠØ¡
+AI       : Claude API — Sonnet لكل شيء
 Automation: n8n Self-Hosted
-Hosting  : Hetzner VPS â€” IP: 178.104.115.233
-           Ubuntu 24.04 + Docker 29.3.1 + Docker Compose v5.1.1
-Ports    : Supabase â†’ :8000 | n8n â†’ (self-hosted)
+Hosting  : Hetzner VPS — IP: 178.104.115.233
+Ports    : Supabase → :8000
 Paths    : /opt/biosovereignty/supabase/docker
-```
 
 ---
 
-## [DATABASE â€” 17 Ø¬Ø¯ÙˆÙ„]
+## [DATABASE — 17 جدول]
 profiles, daily_logs, meals, workouts, supplements, water_logs,
 inbody_reports, lab_results, conversations, meeting_rooms, alerts,
 supplement_changes, memory_snapshots, behavioral_scores, pr_records
-+ RLS Ù…ÙØ¹Ù‘Ù„ âœ…
++ RLS مفعّل
 
 ---
 
-## [DESIGN SYSTEM â€” Ù…Ø¹ØªÙ…Ø¯]
-```css
+## [DESIGN SYSTEM — معتمد]
 --bg-main: #EEF2F8 | --bg-card: #FFFFFF | --bg-sidebar: #0F1629
 --color-primary: #4F46E5 | --color-success: #22C55E
 --color-warning: #F59E0B | --color-danger: #EF4444
 --radius-card: 14px | Font: system-ui Arabic-first
-```
 Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 
 ---
 
 ## [WHOOP INTEGRATION]
-- Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¥Ø¯Ø®Ø§Ù„: ØµÙˆØ±Ø© screenshot Ù…Ù† ØªØ·Ø¨ÙŠÙ‚ WHOOP + Claude Vision Ù„Ø§Ø³ØªØ®Ø±Ø§Ø¬ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª
-- Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø±Ø¬Ø©: Recovery ScoreØŒ HRVØŒ RHRØŒ Sleep PerformanceØŒ Strain
-- Ù„Ø§ ÙŠÙˆØ¬Ø¯ OAuth token â€” Ø§Ù„Ø§Ø³ØªØ®Ø±Ø§Ø¬ ÙŠØ¹ØªÙ…Ø¯ ÙƒÙ„ÙŠØ§Ù‹ Ø¹Ù„Ù‰ ØªØ­Ù„ÙŠÙ„ Ø§Ù„ØµÙˆØ±Ø©
+- طريقة الإدخال: صورة screenshot من تطبيق WHOOP + Claude Vision
+- البيانات: Recovery Score، HRV، RHR، Sleep Performance، Strain
+- لا يوجد OAuth token — الاستخراج يعتمد على تحليل الصورة
 
 ---
 
 ## [MEMORY]
-- ÙƒÙ„ Ù…ØªØ®ØµØµ ÙŠØ­ØªÙØ¸ Ø¨Ø³ÙŠØ§Ù‚ Ù…Ø³ØªÙ‚Ù„ Ù…Ù† conversations table
-- ÙŠÙØ¬Ù„Ø¨ Ø¢Ø®Ø± 5 Ù…Ø­Ø§Ø¯Ø«Ø§Øª per specialist Ù…Ù† conversations table Ø¹Ù†Ø¯ Ø¨Ø¯Ø¡ ÙƒÙ„ Ø¬Ù„Ø³Ø©
-- ÙŠÙØ®Ø²ÙŽÙ‘Ù† Ø§Ù„Ù…Ù„Ø®Øµ ÙÙŠ memory_snapshots Ø¨Ø¹Ø¯ ÙƒÙ„ Ù…Ø­Ø§Ø¯Ø«Ø©
+- كل متخصص يحتفظ بسياق مستقل من conversations table
+- يُجلب آخر 5 محادثات per specialist عند بدء كل جلسة
+- يُخزَّن الملخص في memory_snapshots بعد كل محادثة
 
 ---
 
-## [COMPLETED âœ…]
-- VPS + Docker + Supabase Self-Hosted ÙŠØ¹Ù…Ù„
-- 17 Ø¬Ø¯ÙˆÙ„ + RLS
+## [COMPLETED]
+- VPS + Docker + Supabase Self-Hosted يعمل
+- 17 جدول + RLS
 - n8n Self-Hosted
 - Next.js 14 skeleton
 - lib/supabase.ts + lib/claude.ts
-- ÙˆØ§Ø¬Ù‡Ø© Dashboard (Ù…Ø¹ØªÙ…Ø¯Ø©)
-- ÙˆØ§Ø¬Ù‡Ø© Team/Specialists (Ù…Ø¹ØªÙ…Ø¯Ø©)
-- Design System JSX (Ø¨Ø­Ø§Ø¬Ø© Ù…Ø±Ø§Ø¬Ø¹Ø©)
-- Ø´Ø§Ø´Ø© S-05 WHOOP Daily Log + S-05b Ù…Ø±Ø§Ø¬Ø¹Ø© (Ù…ÙƒØªÙ…Ù„Ø©)
-- ØªØ­Ø¯ÙŠØ« Brain.md: AI Model + WHOOP + Memory
-- S-03 إعداد الأهداف — AI Goals + middleware fix ✅
+- واجهة Dashboard + Team (معتمدة)
+- Design System JSX
+- S-05 WHOOP Daily Log + S-05b (مكتملة)
+- S-01 Auth + middleware
+- S-02 Profile setup
+- S-03 Goals setup
+- S-04 Dashboard 2-A — WhoopMetrics + ScoreCards + FastingTimer + ProgressBars + EmptyWhoop
+- S-04 Dashboard 2-B — FastingTimerDetailed + useFastingTimer + Realtime
 
 ---
 
-## [STATUS â€” ÙŠÙØ­Ø¯ÙŽÙ‘Ø« Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©]
-```
-آخر تحديث : 2026-04-07
-آخر إنجاز  : S-03 إعداد الأهداف — AI Goals + middleware fix + UI LTR ✅
-الخطوة القادمة: S-04 Dashboard — المرحلة 2-A — app/(dashboard)/page.tsx
-
-```
+## [STATUS]
+آخر تحديث : 2026-04-12
+آخر إنجاز  : S-04 Dashboard 2-B — FastingTimerDetailed يعمل
+الخطوة القادمة: S-04 Dashboard 2-C — Protein + Water bars
 
 ---
 
-## [ROADMAP â€” 4 Ø£Ø³Ø§Ø¨ÙŠØ¹]
-- W1: Design System + Auth + Dashboard Ø­ÙŠ + WHOOP Ø±Ø¨Ø· â† Ù†Ø­Ù† Ù‡Ù†Ø§
-- W2: Ø§Ù„ÙØ±ÙŠÙ‚ ÙˆØ¸ÙŠÙÙŠ + Ø°Ø§ÙƒØ±Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© + ØºØ±ÙØ© Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹
-- W3: Ø§Ù„ØªÙ…Ø§Ø±ÙŠÙ† + Ø§Ù„ÙˆØ¬Ø¨Ø§Øª + Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª (ÙƒØ§Ù…Ù„)
-- W4: Ø§Ù„ØªÙ‚Ø§Ø±ÙŠØ± + n8n + Ø¶Ø¨Ø· + PWA + Ø¥Ø·Ù„Ø§Ù‚
-- Launch: Ø§Ø®ØªØ¨Ø§Ø± Ù…Ø¹ 10 Ø£Ø´Ø®Ø§Øµ Ã— 3 Ø£Ø´Ù‡Ø±
----
-
-## [CORE MODULES â€” Ù…Ù„Ø®Øµ]
-| Module | Ø§Ù„ÙˆØµÙ |
-|--------|--------|
-| Dashboard | Recovery+HRV, Fasting Timer, Protein/Water bars, Daily Score, BioSov Score/1000 |
-| Team | 14 Ù…ØªØ®ØµØµØŒ Specialist MemoryØŒ Smart ContextØŒ Second OpinionØŒ Meeting Room |
-| Workouts | Smart weight suggestion (WHOOP+Archive+Coach)ØŒ Fatigue MapØŒ Knee tracker |
-| Meals | Photo analysis (Claude Vision)ØŒ Fasting windowØŒ Barcode scanØŒ Inflammatory Score |
-| Supplements | Dynamic time windowsØŒ Smart Interaction AlertsØŒ Blood correlation |
-| Analytics | Daily Score/100ØŒ BioSov Score/1000ØŒ Trigger MappingØŒ Mood tracker |
-| Archive | Time MachineØŒ Doctor PDF exportØŒ Quarterly reportØŒ Smart search |
+## [ROADMAP — 4 اسابيع]
+- W1: Design System + Auth + Dashboard حي + WHOOP ربط
+- W2: الفريق وظيفي + ذاكرة حقيقية + غرفة الاجتماع
+- W3: التمارين + الوجبات + المكملات
+- W4: التقارير + n8n + ضبط + PWA + إطلاق
 
 ---
 
-## [ROLES â€” ÙƒÙŠÙ ØªØ³ØªØ¯Ø¹ÙŠÙ‡Ø§]
-```
-ðŸ”§ CTO   â†’ "Ø¨ØµÙØªÙƒ CTO Ù„Ù„Ù…Ù†ØµØ©ØŒ Ø±Ø§Ø¬Ø¹ STATUS Ø£Ø¹Ù„Ø§Ù‡ ÙˆØ£Ø®Ø¨Ø±Ù†ÙŠ Ø¨Ù€ [Ø§Ù„Ø³Ø¤Ø§Ù„]"
-ðŸ“ˆ BD    â†’ "Ø¨ØµÙØªÙƒ BDØŒ Ø­Ù„Ù‘Ù„ [Ø§Ù„Ù‚Ø±Ø§Ø±] Ù…Ù† Ø²Ø§ÙˆÙŠØ© Ø§Ù„Ù…Ù†ØªØ¬ ÙˆØ§Ù„Ù…Ø³ØªØ®Ø¯Ù…"
-âš¡ DEV   â†’ "Ø§ÙƒØªØ¨ ÙƒÙˆØ¯ [Ø§Ù„Ù…Ù‡Ù…Ø©] Ø¨Ù€ Next.js 14 / Supabase / TypeScript"
-ðŸŽ¨ UI    â†’ "ØµÙ…Ù… ÙˆØ§Ø¬Ù‡Ø© [Ø§Ù„ØµÙØ­Ø©] Ù…ØªÙˆØ§ÙÙ‚Ø© Ù…Ø¹ Design System Ø£Ø¹Ù„Ø§Ù‡"
-```
+## [CORE MODULES]
+Dashboard  : Recovery+HRV, Fasting Timer, Protein/Water bars, Daily Score, BioSov Score/1000
+Team       : 14 متخصص، Specialist Memory، Smart Context، Meeting Room
+Workouts   : Smart weight suggestion، Fatigue Map، Knee tracker
+Meals      : Photo analysis (Claude Vision)، Fasting window، Barcode scan
+Supplements: Dynamic time windows، Smart Interaction Alerts
+Analytics  : Daily Score/100، BioSov Score/1000، Trigger Mapping
+Archive    : Time Machine، Doctor PDF export، Quarterly report
 
 ---
 
-## [TOKEN RULES â€” Ù‚ÙˆØ§Ø¹Ø¯ Ø§Ù„ØªÙˆÙƒÙ†]
-1. Ù…Ø­Ø§Ø¯Ø«Ø© = Ù…Ù‡Ù…Ø© ÙˆØ§Ø­Ø¯Ø© ÙÙ‚Ø·
-2. Ø§Ø¨Ø¯Ø£ Ø¯Ø§Ø¦Ù…Ø§Ù‹ Ø¨Ù€ "OUTPUT:" Ù„Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ ÙƒÙˆØ¯ Ù…Ø¨Ø§Ø´Ø± Ø¨Ø¯ÙˆÙ† Ø´Ø±Ø­
-3. Ø§Ø±ÙÙ‚ Brain.md ÙÙ‚Ø· + Ø§Ù„Ù…Ù„Ù Ø§Ù„Ù…Ø±ØªØ¨Ø· Ø¨Ø§Ù„Ù…Ù‡Ù…Ø©
-4. Ø¨Ø¹Ø¯ ÙƒÙ„ Ø¬Ù„Ø³Ø©: Ø­Ø¯Ù‘Ø« STATUS Ø¨Ù€ 3 Ø£Ø³Ø·Ø±
-5. Ù„Ø§ ØªØ·Ù„Ø¨ ØªØµÙ…ÙŠÙ… + ÙƒÙˆØ¯ ÙÙŠ Ù†ÙØ³ Ø§Ù„Ø´Ø§Øª
+## [ROLES]
+CTO → "بصفتك CTO للمنصة، راجع STATUS اعلاه وأخبرني بـ [السؤال]"
+BD  → "بصفتك BD، حلّل [القرار] من زاوية المنتج والمستخدم"
+DEV → "اكتب كود [المهمة] بـ Next.js 14 / Supabase / TypeScript"
+UI  → "صمم واجهة [الصفحة] متوافقة مع Design System اعلاه"
 
 ---
 
-## [CONNECTIONS]
-- GitHub:  https://github.com/osama6009usa/yourhealth
-- Supabase Dashboard: http://178.104.115.233:8000
-- SSH: root@178.104.115.233
-- n8n: [Ø£Ø¶Ù Ø§Ù„Ø¨ÙˆØ±Øª]
-- Roadmap: /docs/BioSovereignty_Final_v3.md (Ù…Ø¹ØªÙ…Ø¯: 2026-04-05)
-
-
-
-
+## [TOKEN RULES]
+1. محادثة = مهمة واحدة فقط
+2. ابدأ بـ OUTPUT: للحصول على كود مباشر
+3. لا تكرر الكود الموجود — فقط الإضافات والتغييرات
