@@ -67,13 +67,15 @@ Components: DesignSystemProvider, biosov-card-hover, biosov-pulse
 - S-03 Goals setup
 - S-04 Dashboard 2-A — WhoopMetrics + ScoreCards + FastingTimer + ProgressBars + EmptyWhoop
 - S-04 Dashboard 2-B — FastingTimerDetailed + useFastingTimer + Realtime
+- S-04 Dashboard 2-C — NutritionSection + WaterQuickAdd + StreakCounter + Realtime
+- S-06 تسجيل الماء — WaterPage + useWaterLog + Realtime
 
 ---
 
 ## [STATUS]
-آخر تحديث : 2026-04-12
-آخر إنجاز  : S-04 Dashboard 2-B — FastingTimerDetailed يعمل
-الخطوة القادمة: S-04 Dashboard 2-C — Protein + Water bars
+آخر تحديث : 2026-04-17
+آخر إنجاز  : S-06 تسجيل الماء — WaterPage + useWaterLog + Realtime
+الخطوة القادمة: S-07 Daily Score
 
 ---
 

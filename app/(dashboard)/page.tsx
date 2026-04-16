@@ -1,15 +1,14 @@
-import { Suspense } from "react"
+﻿import { Suspense } from "react"
 import { redirect } from "next/navigation"
 import { getDashboardData } from "@/lib/dashboard-data"
 import { WhoopMetrics } from "@/components/dashboard/WhoopMetrics"
 import { ScoreCards } from "@/components/dashboard/ScoreCards"
 import { FastingTimerDetailed } from "@/components/fasting/FastingTimerDetailed"
-import { ProgressBars } from "@/components/dashboard/ProgressBars"
 import { EmptyWhoop } from "@/components/dashboard/EmptyWhoop"
+import { NutritionSection } from "@/components/dashboard/NutritionSection"
 
 export default async function DashboardPage() {
   let data
-
   try {
     data = await getDashboardData()
   } catch (err: unknown) {
@@ -37,6 +36,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-[#EEF2F8] pb-24" dir="rtl">
       <div className="max-w-2xl mx-auto px-4 pt-6 space-y-4">
 
+        {/* ── Header ── */}
         <div className="flex items-center justify-between mb-2">
           <div>
             <p className="text-xs text-gray-500 font-medium">
@@ -54,12 +54,14 @@ export default async function DashboardPage() {
           </div>
         </div>
 
+        {/* ── WHOOP ── */}
         {!hasWhoopData ? (
           <EmptyWhoop />
         ) : (
           <WhoopMetrics log={dailyLog!} />
         )}
 
+        {/* ── Scores ── */}
         <Suspense fallback={<div className="h-24 bg-white/60 rounded-2xl animate-pulse" />}>
           <ScoreCards
             dailyScore={dailyScore?.daily_score ?? null}
@@ -67,16 +69,21 @@ export default async function DashboardPage() {
           />
         </Suspense>
 
+        {/* ── Fasting Timer ── */}
         <div className="bg-white rounded-2xl shadow-sm p-5">
           <h2 className="text-sm font-semibold text-gray-700 mb-4">عداد الصيام</h2>
           <FastingTimerDetailed userId={userId} />
         </div>
 
-        <ProgressBars
-          proteinConsumed={totalProteinToday}
+        {/* ── Nutrition: Protein + Water + Streak ── */}
+        <NutritionSection
+          userId={userId}
+          initialProtein={totalProteinToday}
           proteinGoal={userGoals.protein_goal}
-          waterConsumed={totalWaterToday}
+          initialWater={totalWaterToday}
           waterGoal={userGoals.water_goal_ml}
+          initialStreak={0}
+          initialBestStreak={0}
         />
 
       </div>
