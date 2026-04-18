@@ -1,0 +1,7 @@
+﻿content = open('C:/nextapp/components/DailyScoreCard.tsx', encoding='utf-8').read()
+content = content.replace("extra:${breakdown.recovery.raw}/100", "extra:String(breakdown.recovery.raw)+'/100'")
+content = content.replace("extra:${Math.round(breakdown.protein.raw)}g/${breakdown.protein.goal}g", "extra:Math.round(breakdown.protein.raw)+'g/'+breakdown.protein.goal+'g'")
+content = content.replace("extra:${breakdown.water.raw}/${breakdown.water.goal}ml", "extra:breakdown.water.raw+'/'+breakdown.water.goal+'ml'")
+content = content.replace("breakdown.fasting.hours>0?`${breakdown.fasting.hours}h", "breakdown.fasting.hours>0?breakdown.fasting.hours+'h'")
+open('C:/nextapp/components/DailyScoreCard.tsx', 'w', encoding='utf-8').write(content)
+print('fixed')
