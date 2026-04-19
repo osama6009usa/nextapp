@@ -1,0 +1,6 @@
+﻿html = open('public/team-static.html', encoding='utf-8').read()
+lines = html.split('\n')
+print('Line 1336:', repr(lines[1335]))
+print('Line 1337:', repr(lines[1336]))
+print('Line 1338:', repr(lines[1337]))
+print('Line 1339:', repr(lines[1338]))

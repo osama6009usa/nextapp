@@ -102,9 +102,9 @@ supplement_changes, memory_snapshots, behavioral_scores, pr_records
 ---
 
 ## [STATUS]
-آخر تحديث  : 2026-04-19
-آخر إنجاز  : S-07 Daily Score — Layout fix + DashboardHeader + i18n + Quick Actions + Weekly Strip
-الخطوة القادمة: S-08 صفحة الفريق
+آخر تحديث  : 2026-04-20
+آخر إنجاز  : S-08b Debate Mode — Courtroom + Claude API + Archive + Quota 3/day
+الخطوة القادمة: S-09
 
 ---
 
