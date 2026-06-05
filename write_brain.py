@@ -1,4 +1,6 @@
-# BioSovereignty Platform — PROJECT BRAIN v1.2
+import pathlib
+
+content = """# BioSovereignty Platform — PROJECT BRAIN v1.2
 > انسخ هذا الملف كاملاً في بداية كل محادثة جديدة
 
 ---
@@ -24,12 +26,12 @@ Paths      : /opt/biosovereignty/supabase/docker
 
 ## [POWERSHELL + PYTHON RULES — مهم جداً]
 - لكتابة ملفات TSX/عربي: استخدم Python دائماً (أموثوق من PowerShell)
-- سكريبت Python: pathlib.Path(r"C:\path").write_text(content, encoding="utf-8")
+- سكريبت Python: pathlib.Path(r"C:\\path").write_text(content, encoding="utf-8")
 - PowerShell فقط لـ: تشغيل الأوامر (npx, npm, git)
 - لا تستخدم Set-Content أبداً (يكسر encoding العربي)
 - لا تستخدم pwsh (غير مثبت) — استخدم: powershell
-- Emoji في PowerShell strings: unicode escape \uD83D\uDCAA
-- Python مثبت: Python 3.14.3 في C:\Python314\
+- Emoji في PowerShell strings: unicode escape \\uD83D\\uDCAA
+- Python مثبت: Python 3.14.3 في C:\\Python314\\
 
 ---
 
@@ -134,7 +136,7 @@ pr_records schema: id, user_id, exercise_name, weight, reps, date
 ---
 
 ## [WORKOUT MODULE — تفاصيل تقنية]
-المسار: C:\nextapp\app\workout\
+المسار: C:\\nextapp\\app\\workout\\
 الملفات:
 - page.tsx — Server Component، يجلب dailyContext من Supabase
 - WorkoutClient.tsx — Client Component، state machine للـ phases
@@ -180,3 +182,7 @@ UI  -> "صمم واجهة [الصفحة] متوافقة مع Design System أع�
 2. ابدأ بـ OUTPUT: للحصول على كود مباشر
 3. لا تكرر الكود الموجود — فقط الإضافات والتغييرات
 4. اكتب الملفات دائماً عبر Python script (لا PowerShell لملفات TSX)
+"""
+
+pathlib.Path(r"C:\\nextapp\\BRAIN.md").write_text(content, encoding="utf-8")
+print("Done")

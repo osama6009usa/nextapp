@@ -1,0 +1,11 @@
+﻿$sql = @"
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS exercise_name   TEXT;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS sets            JSONB;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS hrv_at_time     INT;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS recovery_score  INT;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS knee_flagged    BOOLEAN DEFAULT false;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS ai_suggestion   TEXT;
+ALTER TABLE workouts ADD COLUMN IF NOT EXISTS notes           TEXT;
+"@
+[System.IO.File]::WriteAllText('C:\nextapp\migration_workouts.sql', $sql, [System.Text.UTF8Encoding]::new($false))
+Write-Host 'SQL file created'
